@@ -4,6 +4,10 @@ dotenv.config();
 const STRIPE_SECRET_KEY = process.env.stripe_secret_key;
 const STRIPE_BASE_URL = process.env.stripe_base_url;
 
+/**
+ * @param {*} productName
+ * @returns {Promise} product
+ * */
 async function createProduct(productName) {
   try {
     const response = await fetch(`${STRIPE_BASE_URL}/products`, {
@@ -22,6 +26,12 @@ async function createProduct(productName) {
   }
 }
 
+/**
+ * @param {*} productId
+ * @param {*} amount
+ * @param {*} currency
+ * @returns {Promise} price
+ * */
 async function addPriceToProduct(productId, amount, currency) {
   try {
     const response = await fetch(`${STRIPE_BASE_URL}/prices`, {
@@ -40,6 +50,10 @@ async function addPriceToProduct(productId, amount, currency) {
   }
 }
 
+/**
+ * @param {*} priceId
+ * @returns {Promise} paymentLink
+ * */
 async function createPaymentLink(priceId) {
   try {
     const response = await fetch(`${STRIPE_BASE_URL}/checkout/sessions`, {
